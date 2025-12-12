@@ -353,12 +353,55 @@ def register():
                 email=email,
             )
 
-        # Prevent duplicate email
+        # Check if user already exists
         existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            flash('This email is already registered. Please log in.', 'warning')
-            return redirect(url_for('login'))
 
+        if existing_user:
+            # If the user is already VERIFIED, behave as before
+            if existing_user.is_verified:
+                flash('This email is already registered. Please log in.', 'warning')
+                return redirect(url_for('login'))
+
+            # If the user is NOT VERIFIED, let them "re-register" and resend code
+            pw = bcrypt.generate_password_hash(request.form.get('password')).decode('utf-8')
+            code = generate_verification_code()
+
+            # Update existing unverified user with latest details
+            existing_user.fullname = fullname
+            existing_user.phone = phone
+            existing_user.department = department
+            existing_user.branch = branch
+            existing_user.password = pw
+            existing_user.is_verified = False
+            existing_user.verification_code = code
+            db.session.commit()
+
+            # Remember which user we are verifying
+            session['pending_user_id'] = existing_user.id
+
+            try:
+                send_verification_email(email, code)
+                flash(
+                    'This email was previously registered but not verified. '
+                    'A new verification code has been sent to your inbox or spam.',
+                    'success',
+                )
+            except Exception:
+                app.logger.exception("Verification email failed (resend for existing unverified user)")
+                flash(
+                    'We could not resend the verification email. Please contact IT.',
+                    'danger',
+                )
+
+            # Show the verification overlay with email shown
+            return render_template(
+                'register.html',
+                show_verification=True,
+                invalid_code=False,
+                email=email,
+            )
+
+        # No existing user: normal registration flow
         pw = bcrypt.generate_password_hash(request.form.get('password')).decode('utf-8')
 
         # Generate verification code and create user as unverified

@@ -1,20 +1,14 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-# Ignore environment variables
+# Environment files
 .env
 
-# Ignore Flask instance folder (database, configs, etc.)
-instance/
-
-# Ignore Python cache
-__pycache__/
-
-# Ignore virtual environment folders
+# Python virtual environment
 venv/
 env/
 
-# Ignore VS Code settings
-.vscode/
-
-# Ignore compiled files
+# Cache + build files
+__pycache__/
 *.pyc
 
+# Local database
+instance/
+*.db
