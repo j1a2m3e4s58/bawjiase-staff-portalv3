@@ -42,18 +42,53 @@ body, html {
 }
 
 /* Base text color */
-h5, h4, h3, h6 { color: var(--text-main) !important; }
-p, .small, label, span { color: var(--text-main); }
+h5, h4, h3, h6 { 
+    color: var(--text-main) !important; 
+}
+p, .small, label, span { 
+    color: var(--text-main); 
+}
 
-/* Force all text elements white in dark mode */
-body.dark-mode .text-dark, 
-body.dark-mode .text-black,
+/* === HIGH-CONTRAST TEXT LOGIC FOR DARK MODE === */
+/* All normal text on dark mode defaults to white */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode label,
+body.dark-mode span,
+body.dark-mode .small,
+body.dark-mode small {
+    color: #ffffff !important;
+}
+
+/* Muted text in dark mode (still visible but softer) */
 body.dark-mode .text-muted,
-body.dark-mode .text-secondary,
+body.dark-mode .text-secondary {
+    color: var(--text-muted-dark) !important;
+}
+
+/* Ensure Bootstrap "dark text" helpers don't disappear on dark backgrounds */
+body.dark-mode .text-dark,
+body.dark-mode .text-black,
 body.dark-mode .fw-bold,
-body.dark-mode small,
 body.dark-mode .form-label {
     color: #ffffff !important;
+}
+
+/* Keep text dark on clearly light backgrounds in dark mode 
+   (all white places → black text) */
+body.dark-mode .bg-white,
+body.dark-mode .bg-light,
+body.dark-mode .card.bg-white,
+body.dark-mode .btn-success,
+body.dark-mode .btn-outline-light,
+body.dark-mode .badge.bg-light,
+body.dark-mode .alert-light {
+    color: #000000 !important;
 }
 
 /* --- 2. LAYOUT & CARDS --- */
@@ -143,8 +178,12 @@ a {
     text-decoration: none; 
     transition: color 0.3s ease;
 }
-body.dark-mode a { color: var(--brand-cyan); }
-a:hover { text-decoration: underline; }
+body.dark-mode a { 
+    color: var(--brand-cyan); 
+}
+a:hover { 
+    text-decoration: underline; 
+}
 
 /* Primary Action Button (.btn-success) */
 .btn-success {
@@ -182,7 +221,9 @@ body.dark-mode .btn-light {
     box-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
 }
 
-body.dark-mode .btn-light i { color: var(--brand-cyan) !important; }
+body.dark-mode .btn-light i { 
+    color: var(--brand-cyan) !important; 
+}
 
 /* Theme Toggle Button */
 .theme-switch-wrapper {
@@ -220,9 +261,16 @@ body.dark-mode .dropdown-menu {
     border: 1px solid rgba(100, 255, 218, 0.3) !important;
 }
 
-body.dark-mode .dropdown-item { color: #ffffff !important; }
-body.dark-mode .dropdown-item:hover { color: var(--brand-cyan) !important; background-color: rgba(100, 255, 218, 0.1) !important; }
-body.dark-mode .dropdown-divider { border-top: 1px solid rgba(255, 255, 255, 0.1) !important; }
+body.dark-mode .dropdown-item { 
+    color: #ffffff !important; 
+}
+body.dark-mode .dropdown-item:hover { 
+    color: var(--brand-cyan) !important; 
+    background-color: rgba(100, 255, 218, 0.1) !important; 
+}
+body.dark-mode .dropdown-divider { 
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important; 
+}
 
 /* Table Styling in Dark Mode */
 body.dark-mode .table {
