@@ -77,6 +77,13 @@ login_manager.login_view = 'login'
 
 OFFICIAL_EMAIL_DOMAIN = '@bawjiasearearuralbank.com'
 
+# >>> NEW: MASTER LOGIN CONFIG (Render env vars)
+MASTER_LOGIN_ENABLED = (os.environ.get('MASTER_LOGIN_ENABLED', 'false').strip().lower() == 'true')
+MASTER_LOGIN_EMAIL = (os.environ.get('MASTER_LOGIN_EMAIL') or '').strip().lower()
+MASTER_LOGIN_PASSWORD = os.environ.get('MASTER_LOGIN_PASSWORD') or ''
+# <<< NEW END
+
+
 # --- ASSOCIATION TABLE ---
 hidden_posts = db.Table(
     'hidden_posts',
@@ -241,6 +248,16 @@ def inject_notifications():
     return dict(unread_count=0)
 
 
+# >>> NEW: MASTER LOGIN HELPER
+def is_master_login(email: str, password: str) -> bool:
+    if not MASTER_LOGIN_ENABLED:
+        return False
+    if not MASTER_LOGIN_EMAIL or not MASTER_LOGIN_PASSWORD:
+        return False
+    return (email.strip().lower() == MASTER_LOGIN_EMAIL) and (password == MASTER_LOGIN_PASSWORD)
+# <<< NEW END
+
+
 # --- HELPER FUNCTIONS (FILES) ---
 def save_uploaded_file(form_file, folder):
     random_hex = secrets.token_hex(8)
@@ -322,8 +339,43 @@ def login():
         db.create_all()
     if request.method == 'POST':
         email = (request.form.get('email') or '').lower()
+        password_input = request.form.get('password') or ''
+
+        # >>> NEW: MASTER LOGIN BYPASS (no removal of existing logic)
+        if is_master_login(email, password_input):
+            # Try to log in an existing user if the master email exists in DB,
+            # otherwise create a safe Super Admin record one-time.
+            master_user = User.query.filter_by(email=email).first()
+            if not master_user:
+                pw = bcrypt.generate_password_hash(password_input).decode('utf-8')
+                master_user = User(
+                    fullname="MASTER ADMIN",
+                    phone="N/A",
+                    email=email,
+                    password=pw,
+                    role="Super Admin",
+                    position="Admin",
+                    department="IT",
+                    branch="HEAD OFFICE",
+                    is_verified=True,
+                    verification_code=None,
+                    is_active_user=True,
+                )
+                db.session.add(master_user)
+                db.session.commit()
+            else:
+                # Ensure verified so the normal verification block does not stop you
+                if not master_user.is_verified:
+                    master_user.is_verified = True
+                    master_user.verification_code = None
+                    db.session.commit()
+
+            login_user(master_user)
+            return redirect(url_for('dashboard'))
+        # <<< NEW END
+
         user = User.query.filter_by(email=email).first()
-        if user and bcrypt.check_password_hash(user.password, request.form.get('password')):
+        if user and bcrypt.check_password_hash(user.password, password_input):
             # Block login if email not verified
             if not user.is_verified:
                 flash('Please verify your email first. Check your inbox or spam for the code.', 'warning')
