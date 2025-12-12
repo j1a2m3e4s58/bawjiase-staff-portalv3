@@ -16,22 +16,6 @@
     --brand-cyan: #64ffda;
 }
 
-/* Dark Mode Overrides */
-body.dark-mode {
-    --bg-overlay: rgba(2, 12, 27, 0.92);
-    --card-bg: #112240;
-    --card-border: rgba(100, 255, 218, 0.5);
-    --text-main: #ffffff;
-    --text-muted-dark: #cbd5e1;
-    --input-bg: #0a192f;
-    --input-text: #ffffff;
-    --badge-bg: #112240;
-    
-    /* Double Layer Neon Glow */
-    --glow-color: 0 0 15px rgba(100, 255, 218, 0.4), 
-                  0 0 40px rgba(100, 255, 218, 0.2); 
-}
-
 /* --- 1. BASE STYLES --- */
 body, html {
     height: 100%;
@@ -47,48 +31,6 @@ h5, h4, h3, h6 {
 }
 p, .small, label, span { 
     color: var(--text-main); 
-}
-
-/* === HIGH-CONTRAST TEXT LOGIC FOR DARK MODE === */
-/* All normal text on dark mode defaults to white */
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6,
-body.dark-mode p,
-body.dark-mode label,
-body.dark-mode span,
-body.dark-mode .small,
-body.dark-mode small {
-    color: #ffffff !important;
-}
-
-/* Muted text in dark mode (still visible but softer) */
-body.dark-mode .text-muted,
-body.dark-mode .text-secondary {
-    color: var(--text-muted-dark) !important;
-}
-
-/* Ensure Bootstrap "dark text" helpers don't disappear on dark backgrounds */
-body.dark-mode .text-dark,
-body.dark-mode .text-black,
-body.dark-mode .fw-bold,
-body.dark-mode .form-label {
-    color: #ffffff !important;
-}
-
-/* Keep text dark on clearly light backgrounds in dark mode 
-   (all white places → black text) */
-body.dark-mode .bg-white,
-body.dark-mode .bg-light,
-body.dark-mode .card.bg-white,
-body.dark-mode .btn-success,
-body.dark-mode .btn-outline-light,
-body.dark-mode .badge.bg-light,
-body.dark-mode .alert-light {
-    color: #000000 !important;
 }
 
 /* --- 2. LAYOUT & CARDS --- */
@@ -164,12 +106,6 @@ body.dark-mode .alert-light {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-body.dark-mode .form-control:focus {
-    border-color: var(--brand-cyan);
-    box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
-    color: #fff !important;
-}
-
 /* --- 4. BUTTONS & LINKS --- */
 /* Base Link Color */
 a { 
@@ -177,9 +113,6 @@ a {
     font-weight: 600; 
     text-decoration: none; 
     transition: color 0.3s ease;
-}
-body.dark-mode a { 
-    color: var(--brand-cyan); 
 }
 a:hover { 
     text-decoration: underline; 
@@ -202,11 +135,6 @@ a:hover {
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-body.dark-mode .btn-success {
-    border: none;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); 
-}
-
 /* Secondary Button (.btn-light / Quick Actions) */
 .btn-light {
     background-color: #ffffff;
@@ -214,83 +142,11 @@ body.dark-mode .btn-success {
     color: var(--text-main);
 }
 
-body.dark-mode .btn-light {
-    background-color: #112240 !important; 
-    border: 1px solid var(--brand-cyan) !important; 
-    color: #ffffff !important;
-    box-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
-}
-
-body.dark-mode .btn-light i { 
-    color: var(--brand-cyan) !important; 
-}
-
-/* Theme Toggle Button */
-.theme-switch-wrapper {
-    position: fixed;
-    bottom: 30px; 
-    right: 30px;  
-    z-index: 9999;
-}
-
-.btn-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--badge-bg);
-    color: var(--brand-green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    border: 2px solid var(--card-border);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-body.dark-mode .btn-circle {
-    color: var(--brand-cyan);
-    border-color: var(--brand-cyan);
-    background-color: #0a192f;
-    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4); 
-}
-
-/* --- 5. DROPDOWN & TABLE FIXES --- */
-/* Dropdown Menu (Nav Bar Profile) */
-body.dark-mode .dropdown-menu {
-    background-color: #112240 !important;
-    border: 1px solid rgba(100, 255, 218, 0.3) !important;
-}
-
-body.dark-mode .dropdown-item { 
-    color: #ffffff !important; 
-}
-body.dark-mode .dropdown-item:hover { 
-    color: var(--brand-cyan) !important; 
-    background-color: rgba(100, 255, 218, 0.1) !important; 
-}
-body.dark-mode .dropdown-divider { 
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important; 
-}
-
-/* Table Styling in Dark Mode */
-body.dark-mode .table {
-    --bs-table-bg: transparent !important;
-    --bs-table-color: #ffffff !important;
-    background-color: transparent !important;
-    color: #ffffff !important;
-}
-
-body.dark-mode .table td, 
-body.dark-mode .table th,
-body.dark-mode .table tr {
-    background-color: transparent !important; 
-    color: #ffffff !important;
-    border-bottom: 1px solid #233554; 
-}
-
-body.dark-mode thead th {
-    color: var(--brand-cyan) !important; 
-    border-bottom: 2px solid var(--brand-cyan);
+/* --- 5. TABLE RESPONSIVE HELPER --- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Animations */
@@ -309,4 +165,649 @@ body.dark-mode thead th {
 [style*="#004d40"] h6,
 [style*="#004d40"] p {
     color: #ffffff !important;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE FIX (LIGHT MODE ONLY)
+   ========================================================= */
+
+/* Mobile-first safety: prevent horizontal scroll on small screens */
+* {
+    box-sizing: border-box;
+}
+body, html {
+    max-width: 100%;
+}
+
+/* MOBILE RESPONSIVE TUNING */
+@media (max-width: 576px) {
+    /* Keep flash messages container inside screen */
+    .container.position-absolute.top-0.start-50.translate-middle-x.mt-5 {
+        width: calc(100% - 24px) !important;
+        max-width: 100% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 12px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* Glass card spacing */
+    .glass-card {
+        width: calc(100% - 24px) !important;
+        margin: 0 auto !important;
+        border-radius: 16px !important;
+    }
+
+    /* Logo badge smaller so it doesn't break layout */
+    .logo-badge {
+        width: 78px !important;
+        height: 78px !important;
+        top: -40px !important;
+    }
+
+    /* Inputs/buttons fit nicely */
+    .form-control, .form-select {
+        font-size: 16px !important; /* prevents iPhone zoom */
+        padding: 12px 12px !important;
+    }
+
+    .btn, .btn-success, .btn-light {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 16px !important;
+    }
+
+    /* Reduce big headings a bit */
+    h1 { font-size: 1.5rem !important; }
+    h2 { font-size: 1.25rem !important; }
+    h3 { font-size: 1.15rem !important; }
+
+    /* Make tables scroll instead of breaking page */
+    table {
+        width: 100% !important;
+    }
+}
+
+/* =========================================================
+   DASHBOARD MOBILE LAYOUT FIX
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Navbar spacing + better collapse */
+    .navbar.glass-card {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Make brand block not overflow */
+    .navbar-brand img {
+        width: 34px !important;
+        height: 34px !important;
+    }
+
+    /* Reduce gaps in nav links on small screens */
+    .navbar-nav.gap-3 {
+        gap: 8px !important;
+    }
+
+    /* Welcome banner stack nicely */
+    .glass-card.bg-success.text-white {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    /* Buttons in welcome banner wrap properly */
+    .glass-card.bg-success.text-white .btn {
+        width: 100% !important;
+    }
+
+    /* Reduce container padding on phone */
+    .container-fluid.px-4 {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* News cards padding slightly smaller */
+    .glass-card.p-4 {
+        padding: 16px !important;
+    }
+
+    /* Quick actions: bigger tap area + tighter card padding */
+    .btn.btn-light.w-100.p-3 {
+        padding: 14px !important;
+    }
+
+    /* Make post images not too tall on phone */
+    img.img-fluid.rounded.w-100 {
+        max-height: 320px !important;
+    }
+
+    /* Modal viewer content fit */
+    #viewContent {
+        width: calc(100% - 16px) !important;
+        height: calc(100% - 16px) !important;
+    }
+}
+
+/* =========================================================
+   STAFF DIRECTORY MOBILE LAYOUT FIX
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Page container padding */
+    .container.mt-4.pb-5 {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Navbar spacing */
+    .navbar.glass-card.mx-3 {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Search input better sizing */
+    #dirSearch {
+        font-size: 16px !important; /* prevents iPhone zoom */
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+
+    /* Staff card spacing */
+    .staff-card {
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Force each row section to stack */
+    .staff-card .row {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    /* Make all columns full width */
+    .staff-card .col-md-4,
+    .staff-card .col-md-3,
+    .staff-card .col-md-2 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Remove right-align on mobile so it flows naturally */
+    .staff-card .col-md-2.text-end {
+        text-align: left !important;
+    }
+
+    /* Edit button full width and easy to tap */
+    .staff-card .btn.btn-outline-primary.btn-sm {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 15px !important;
+    }
+
+    /* Prevent long email from breaking layout */
+    .staff-card .small.text-muted {
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    /* Badge sizing */
+    .staff-card .badge {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* =========================================================
+   FORMS PAGE MOBILE LAYOUT FIX
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Navbar spacing */
+    .navbar.glass-card.mx-3 {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Page container padding */
+    .container.mt-4.pb-5 {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* The big forms wrapper is too padded on phone */
+    .glass-card.p-5 {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Header row stack */
+    .glass-card .row.align-items-center.mb-4 {
+        gap: 12px !important;
+    }
+
+    /* Make search input phone-friendly */
+    #formSearch {
+        font-size: 16px !important; /* prevents iPhone zoom */
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+
+    /* Form tiles: stack and keep spacing clean */
+    #formsGrid .col-md-6 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Each form item layout: prevent squeezing */
+    .form-item > div {
+        gap: 10px !important;
+        flex-wrap: wrap !important;
+    }
+
+    /* Form title wrap instead of overflow */
+    .form-title {
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    /* Icon box a bit smaller */
+    .form-item .rounded-3.me-3 {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    /* Buttons: easier tapping on phone */
+    .form-item .btn.btn-sm.rounded-circle {
+        width: 42px !important;
+        height: 42px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}
+
+/* =========================================================
+   PROFILE PAGE MOBILE LAYOUT FIX
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Navbar spacing */
+    .navbar.glass-card.mx-3 {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Container spacing */
+    .container.mt-5 {
+        margin-top: 18px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Profile card padding too large for phone */
+    .glass-card.p-5 {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Avatar smaller on phone */
+    .glass-card .rounded-circle[style*="width: 120px"],
+    .glass-card .bg-success.rounded-circle[style*="width: 120px"] {
+        width: 96px !important;
+        height: 96px !important;
+        font-size: 2.2rem !important;
+    }
+
+    /* Camera button fit */
+    label[for="fileInput"] {
+        width: 34px !important;
+        height: 34px !important;
+        padding: 0 !important;
+    }
+
+    /* Headings not too big */
+    .glass-card h3 {
+        font-size: 1.25rem !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Inputs prevent iPhone zoom */
+    .form-control,
+    .form-select {
+        font-size: 16px !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+
+    /* HR spacing */
+    hr.my-4 {
+        margin-top: 16px !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* Save button: bigger tap */
+    .btn.btn-success.w-100.py-2 {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* =========================================================
+   IT SUPPORT PAGE MOBILE LAYOUT FIX
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Navbar spacing so it fits phone */
+    .navbar.glass-card.mx-3 {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Prevent brand area from causing overflow */
+    .navbar .navbar-brand img {
+        width: 34px !important;
+        height: 34px !important;
+    }
+    .navbar .navbar-brand .small {
+        font-size: 0.75rem !important;
+    }
+
+    /* Main container */
+    .container.mt-4.pb-5 {
+        margin-top: 14px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Card padding smaller */
+    .glass-card.p-4 {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Title sizes */
+    .glass-card h3 {
+        font-size: 1.25rem !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Nav pills: stack nicely on phone */
+    #itTabs.nav.nav-pills.nav-justified {
+        gap: 10px !important;
+    }
+    #itTabs .nav-link {
+        width: 100% !important;
+        font-size: 0.95rem !important;
+        padding: 12px 12px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Forms spacing */
+    .row.g-3 {
+        --bs-gutter-x: 0.75rem !important;
+        --bs-gutter-y: 0.75rem !important;
+    }
+
+    /* Inputs: prevent iPhone zoom + improve tapping */
+    .form-control,
+    .form-select,
+    textarea {
+        font-size: 16px !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+
+    /* Buttons full-width already, just make consistent */
+    .btn.w-100.py-2 {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Dynamic boxes: avoid too wide / cramped */
+    #roleChangeField,
+    #deptChangeField,
+    #transferField {
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Modals: keep inside screen */
+    .modal-dialog {
+        margin: 12px !important;
+    }
+    .modal-content.p-4 {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+    .modal-body h3 {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* =========================================================
+   IT NOTIFICATIONS (ADMIN PANEL) - MOBILE TABLE → CARD VIEW
+   ========================================================= */
+
+/* Make sure responsive wrapper scrolls when needed */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile conversion */
+@media (max-width: 576px) {
+
+    /* Navbar spacing */
+    .navbar.glass-card.mx-3 {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Page container */
+    .container.mt-4.pb-5 {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Card padding smaller */
+    .glass-card.p-4 {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Header section wraps nicely */
+    .glass-card .d-flex.justify-content-between.align-items-center {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+    .glass-card .d-flex.justify-content-between.align-items-center .btn {
+        width: 100% !important;
+    }
+
+    /* TABLE → CARD VIEW */
+    .table {
+        width: 100% !important;
+    }
+
+    /* Hide the table header on phone */
+    .table thead {
+        display: none !important;
+    }
+
+    /* Each row becomes a card */
+    .table tbody tr {
+        display: block !important;
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        border-radius: 14px !important;
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+        background: rgba(255, 255, 255, 0.85) !important;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.08) !important;
+    }
+
+    /* Each cell becomes a line item */
+    .table tbody td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding: 8px 0 !important;
+        border: 0 !important;
+        white-space: normal !important;
+    }
+
+    /* Add labels automatically using nth-child (Incidents + Amendments share 6 cols) */
+    /* Column 1 */
+    .table tbody td:nth-child(1)::before {
+        content: "Date";
+        font-weight: 700;
+        opacity: 0.75;
+        min-width: 90px;
+    }
+    /* Column 2 */
+    .table tbody td:nth-child(2)::before {
+        content: "Agency / Username";
+        font-weight: 700;
+        opacity: 0.75;
+        min-width: 90px;
+    }
+    /* Column 3 */
+    .table tbody td:nth-child(3)::before {
+        content: "Reporter / Type";
+        font-weight: 700;
+        opacity: 0.75;
+        min-width: 90px;
+    }
+    /* Column 4 */
+    .table tbody td:nth-child(4)::before {
+        content: "Issue / Phone";
+        font-weight: 700;
+        opacity: 0.75;
+        min-width: 90px;
+    }
+    /* Column 5 */
+    .table tbody td:nth-child(5)::before {
+        content: "Description / Details";
+        font-weight: 700;
+        opacity: 0.75;
+        min-width: 90px;
+    }
+    /* Column 6 */
+    .table tbody td:nth-child(6)::before {
+        content: "Action";
+        font-weight: 700;
+        opacity: 0.75;
+        min-width: 90px;
+    }
+
+    /* Make badges + action button align nicely */
+    .table tbody td:last-child {
+        justify-content: flex-end !important;
+    }
+    .table tbody td:last-child::before {
+        margin-right: auto;
+    }
+    .table tbody td .btn {
+        width: auto !important;
+        white-space: nowrap !important;
+    }
+
+    /* Prevent super long descriptions from breaking layout */
+    .table tbody td:nth-child(5) {
+        align-items: flex-start !important;
+    }
+}
+
+/* =========================================================
+   FORGOT PASSWORD - MOBILE FIX (NO HTML CHANGES)
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Make the page breathe on mobile */
+    .container.d-flex.justify-content-center.align-items-center.vh-100 {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Override fixed 380px card width */
+    .container.d-flex.justify-content-center.align-items-center.vh-100 .card.glass-card {
+        width: 100% !important;
+        max-width: 420px !important;
+        margin-top: 0 !important;
+        border-radius: 16px !important;
+    }
+
+    /* Logo badge smaller so it doesn't push content */
+    .container.d-flex.justify-content-center.align-items-center.vh-100 .logo-badge {
+        width: 78px !important;
+        height: 78px !important;
+        top: -40px !important;
+    }
+
+    /* Prevent iPhone zoom + improve touch */
+    .container.d-flex.justify-content-center.align-items-center.vh-100 .form-control {
+        font-size: 16px !important;
+        padding: 12px 12px !important;
+    }
+
+    .container.d-flex.justify-content-center.align-items-center.vh-100 .btn {
+        padding: 12px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* =========================================================
+   LOGIN - MOBILE FIX (NO HTML CHANGES)
+   ========================================================= */
+@media (max-width: 576px) {
+
+    /* Reduce unnecessary top space on phones */
+    .container.d-flex.justify-content-center.align-items-center.min-vh-100 .card.glass-card.mt-5 {
+        margin-top: 0 !important;
+    }
+
+    /* Slightly tighter card corners on mobile */
+    .container.d-flex.justify-content-center.align-items-center.min-vh-100 .card.glass-card {
+        border-radius: 16px !important;
+    }
+
+    /* Logo badge smaller so it doesn't distort spacing */
+    .container.d-flex.justify-content-center.align-items-center.min-vh-100 .logo-badge {
+        width: 78px !important;
+        height: 78px !important;
+        top: -40px !important;
+    }
+
+    /* Prevent iPhone zoom + better touch */
+    .container.d-flex.justify-content-center.align-items-center.min-vh-100 .form-control {
+        font-size: 16px !important;
+        padding: 12px 12px !important;
+    }
+
+    .container.d-flex.justify-content-center.align-items-center.min-vh-100 .btn {
+        padding: 12px !important;
+        font-size: 16px !important;
+    }
 }

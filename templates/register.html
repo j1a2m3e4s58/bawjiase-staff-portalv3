@@ -9,6 +9,14 @@
         background-color: white !important;
     }
 
+    /* >>> NEW: Dark mode dropdown options (so options are readable) */
+    body.dark-mode select option {
+        color: #ffffff !important;
+        background-color: #0a192f !important;
+        font-weight: bold !important;
+    }
+    /* <<< NEW END */
+
     /* 2. Logo Badge Style */
     .logo-badge {
         position: absolute;
@@ -26,6 +34,13 @@
         z-index: 10;
     }
 
+    /* >>> NEW: Dark mode logo badge */
+    body.dark-mode .logo-badge {
+        background: #0a192f !important;
+        border: 1px solid rgba(100, 255, 218, 0.35) !important;
+    }
+    /* <<< NEW END */
+
     /* 3. Animation Styles */
     @keyframes shake {
         0% { transform: translateX(0); }
@@ -40,10 +55,40 @@
         100% { transform: scale(1); }
     }
     .animate-pop { animation: pop 0.5s ease-out forwards; }
+
+    /* >>> NEW: Dark mode overlays MUST NOT stay white (otherwise white text becomes unreadable) */
+    body.dark-mode #verificationMessage,
+    body.dark-mode #finalSuccess {
+        background: rgba(10, 25, 47, 0.98) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(100, 255, 218, 0.35) !important;
+    }
+
+    body.dark-mode #verificationMessage p,
+    body.dark-mode #verificationMessage strong,
+    body.dark-mode #finalSuccess p,
+    body.dark-mode #finalSuccess strong {
+        color: #ffffff !important;
+    }
+
+    /* Fix input-group addon background inside overlays for dark mode */
+    body.dark-mode .input-group-text.bg-white {
+        background-color: #0a192f !important;
+        border-color: rgba(100, 255, 218, 0.35) !important;
+    }
+
+    /* Mobile padding safety */
+    @media (max-width: 576px) {
+        .card.glass-card {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+    /* <<< NEW END */
 </style>
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
-    <div class="card glass-card p-3 shadow-lg" style="width: 450px; min-height: 550px; position: relative; overflow: visible;">
+<div class="container d-flex justify-content-center align-items-center min-vh-100 py-5 px-3">
+    <div class="card glass-card p-3 shadow-lg w-100" style="max-width: 450px; min-height: 550px; position: relative; overflow: visible;">
          
         <div id="topLogo" class="logo-badge">
             <img src="{{ url_for('static', filename='img/barb_logo.png') }}" alt="BARB Logo" width="60" height="60" class="rounded-circle">
